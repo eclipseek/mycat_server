@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>io.mycat.backend</OriginalElement>
+  <nodes>
+    <node x="740.2142857142857" y="450.0">java.sql.Connection</node>
+    <node x="243.63467261904754" y="556.0">io.mycat.backend.mysql.nio.MySQLConnection</node>
+    <node x="589.2142857142857" y="450.0">io.mycat.backend.jdbc.JDBCDatasource</node>
+    <node x="44.125" y="450.0">io.mycat.net.BackendAIOConnection</node>
+    <node x="545.4642857142857" y="354.0">io.mycat.backend.datasource.PhysicalDatasource</node>
+    <node x="0.0" y="354.0">io.mycat.net.AbstractConnection</node>
+    <node x="432.21428571428567" y="450.0">io.mycat.backend.mysql.nio.handler.ResponseHandler</node>
+    <node x="570.4642857142857" y="192.0">io.mycat.backend.ConQueue</node>
+    <node x="567.3385416666666" y="96.0">io.mycat.backend.BackendConnection</node>
+    <node x="46.25" y="273.0">java.nio.channels.NetworkChannel</node>
+    <node x="656.8846726190476" y="556.0">io.mycat.backend.jdbc.JDBCConnection</node>
+    <node x="265.04538690476187" y="0.0">io.mycat.net.ClosableConnection</node>
+    <node x="197.25" y="354.0">io.mycat.backend.mysql.nio.MySQLConnectionFactory</node>
+    <node x="575.9642857142857" y="273.0">io.mycat.backend.ConMap</node>
+    <node x="270.21428571428567" y="450.0">io.mycat.backend.mysql.nio.MySQLDataSource</node>
+  </nodes>
+  <notes>
+    <note x="395.33854166666663" y="81.0">
+      <node>io.mycat.backend.ConQueue</node>
+      <value>autoCommitCons\nmanCommitCons\n保存自动和手动提交连接</value>
+      <edge>
+        <point x="-31.66666666666663" y="-15.5" />
+        <point x="586.297619047619" y="162.0" />
+        <point x="471.33854166666663" y="162.0" />
+        <point x="0.0" y="30.5" />
+      </edge>
+    </note>
+    <note x="859.2142857142857" y="435.0">
+      <node>io.mycat.backend.jdbc.JDBCConnection</node>
+      <value>JDBC 连接托管给DBCP\n等其他连接池管理，所以不会\n有ConnectionFactory</value>
+      <edge>
+        <point x="53.75" y="-15.5" />
+        <point x="775.1346726190476" y="536.0" />
+        <point x="947.2142857142857" y="536.0" />
+        <point x="0.0" y="30.5" />
+      </edge>
+    </note>
+  </notes>
+  <edges>
+    <edge source="io.mycat.backend.mysql.nio.MySQLConnection" target="io.mycat.backend.mysql.nio.handler.ResponseHandler">
+      <point x="52.5" y="-15.5" />
+      <point x="366.13467261904754" y="536.0" />
+      <point x="466.46428571428567" y="536.0" />
+      <point x="-34.25" y="15.5" />
+    </edge>
+    <edge source="io.mycat.backend.mysql.nio.MySQLConnection" target="io.mycat.net.BackendAIOConnection">
+      <point x="-52.5" y="-15.5" />
+      <point x="261.13467261904754" y="536.0" />
+      <point x="129.625" y="536.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="io.mycat.backend.BackendConnection" target="io.mycat.net.ClosableConnection">
+      <point x="0.0" y="-15.5" />
+      <point x="641.8385416666666" y="56.0" />
+      <point x="376.79538690476187" y="56.0" />
+      <point x="37.25" y="15.5" />
+    </edge>
+    <edge source="io.mycat.backend.ConMap" target="io.mycat.backend.ConQueue">
+      <point x="28.0" y="-15.5" />
+      <point x="645.9642857142857" y="248.0" />
+      <point x="649.6309523809523" y="248.0" />
+      <point x="31.66666666666663" y="15.5" />
+    </edge>
+    <edge source="io.mycat.net.BackendAIOConnection" target="io.mycat.net.AbstractConnection">
+      <point x="-42.75" y="-15.5" />
+      <point x="86.875" y="410.0" />
+      <point x="73.5" y="410.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="io.mycat.backend.jdbc.JDBCConnection" target="io.mycat.backend.jdbc.JDBCDatasource">
+      <point x="-32.25" y="-15.5" />
+      <point x="689.1346726190476" y="526.0" />
+      <point x="621.7142857142857" y="526.0" />
+      <point x="-32.5" y="15.5" />
+    </edge>
+    <edge source="io.mycat.net.AbstractConnection" target="java.nio.channels.NetworkChannel">
+      <point x="36.75" y="-15.5" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="io.mycat.backend.jdbc.JDBCConnection" target="java.sql.Connection">
+      <point x="32.25" y="-15.5" />
+      <point x="753.6346726190476" y="526.0" />
+      <point x="789.7142857142857" y="526.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="io.mycat.backend.jdbc.JDBCConnection" target="io.mycat.backend.mysql.nio.handler.ResponseHandler">
+      <point x="-53.75" y="-15.5" />
+      <point x="667.6346726190476" y="536.0" />
+      <point x="534.9642857142857" y="536.0" />
+      <point x="34.25" y="15.5" />
+    </edge>
+    <edge source="io.mycat.backend.ConQueue" target="io.mycat.backend.BackendConnection">
+      <point x="0.0" y="-15.5" />
+      <point x="617.9642857142857" y="172.0" />
+      <point x="623.2135416666666" y="172.0" />
+      <point x="-18.625" y="15.5" />
+    </edge>
+    <edge source="io.mycat.backend.mysql.nio.MySQLConnection" target="io.mycat.backend.mysql.nio.MySQLDataSource">
+      <point x="17.5" y="-15.5" />
+      <point x="331.13467261904754" y="536.0" />
+      <point x="341.21428571428567" y="536.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="io.mycat.net.BackendAIOConnection" target="io.mycat.backend.BackendConnection">
+      <point x="42.75" y="-15.5" />
+      <point x="172.375" y="410.0" />
+      <point x="186.75" y="410.0" />
+      <point x="186.75" y="172.0" />
+      <point x="585.9635416666666" y="172.0" />
+      <point x="-55.875" y="15.5" />
+    </edge>
+    <edge source="io.mycat.backend.mysql.nio.MySQLDataSource" target="io.mycat.backend.datasource.PhysicalDatasource">
+      <point x="47.333333333333314" y="-15.5" />
+      <point x="388.547619047619" y="410.0" />
+      <point x="581.7142857142857" y="410.0" />
+      <point x="-36.25" y="15.5" />
+    </edge>
+    <edge source="io.mycat.backend.jdbc.JDBCDatasource" target="io.mycat.backend.jdbc.JDBCConnection">
+      <point x="32.5" y="15.5" />
+      <point x="686.7142857142857" y="516.0" />
+      <point x="710.6346726190476" y="516.0" />
+      <point x="-10.75" y="-15.5" />
+    </edge>
+    <edge source="io.mycat.net.AbstractConnection" target="io.mycat.net.ClosableConnection">
+      <point x="-36.75" y="-15.5" />
+      <point x="35.75" y="56.0" />
+      <point x="302.29538690476187" y="56.0" />
+      <point x="-37.25" y="15.5" />
+    </edge>
+    <edge source="io.mycat.backend.jdbc.JDBCConnection" target="io.mycat.backend.BackendConnection">
+      <point x="10.75" y="-15.5" />
+      <point x="732.1346726190476" y="536.0" />
+      <point x="729.7142857142857" y="536.0" />
+      <point x="729.7142857142857" y="172.0" />
+      <point x="697.7135416666666" y="172.0" />
+      <point x="55.87500000000003" y="15.5" />
+    </edge>
+    <edge source="io.mycat.backend.jdbc.JDBCDatasource" target="io.mycat.backend.datasource.PhysicalDatasource">
+      <point x="0.0" y="-15.5" />
+      <point x="36.25" y="15.5" />
+    </edge>
+    <edge source="io.mycat.backend.mysql.nio.MySQLConnectionFactory" target="io.mycat.backend.mysql.nio.MySQLConnection">
+      <point x="-60.66666666666666" y="15.5" />
+      <point x="227.58333333333334" y="410.0" />
+      <point x="241.5052083333333" y="410.0" />
+      <point x="241.5052083333333" y="526.0" />
+      <point x="296.13467261904754" y="526.0" />
+      <point x="-17.5" y="-15.5" />
+    </edge>
+    <edge source="io.mycat.backend.mysql.nio.MySQLDataSource" target="io.mycat.backend.mysql.nio.MySQLConnectionFactory">
+      <point x="-47.33333333333337" y="-15.5" />
+      <point x="293.8809523809523" y="410.0" />
+      <point x="288.25" y="410.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="io.mycat.backend.datasource.PhysicalDatasource" target="io.mycat.backend.ConMap">
+      <point x="36.25" y="-15.5" />
+      <point x="654.2142857142857" y="329.0" />
+      <point x="638.9642857142857" y="329.0" />
+      <point x="21.0" y="15.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="518.0" y="293.5" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

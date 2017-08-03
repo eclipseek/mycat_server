@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>io.mycat.buffer.BufferPool</OriginalElement>
+  <nodes>
+    <node x="228.25" y="0.0">io.mycat.buffer.BufferPool</node>
+    <node x="385.0" y="265.0">io.mycat.buffer.DirectByteBufferPool</node>
+    <node x="0.0" y="288.0">io.mycat.buffer.ByteBufferArena</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="io.mycat.buffer.DirectByteBufferPool" target="io.mycat.buffer.BufferPool">
+      <point x="0.0" y="-153.5" />
+      <point x="599.0" y="240.0" />
+      <point x="472.0" y="240.0" />
+      <point x="81.25" y="107.5" />
+    </edge>
+    <edge source="io.mycat.buffer.ByteBufferArena" target="io.mycat.buffer.BufferPool">
+      <point x="0.0" y="-130.5" />
+      <point x="182.5" y="240.0" />
+      <point x="309.5" y="240.0" />
+      <point x="-81.25" y="107.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="406.5" y="286.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

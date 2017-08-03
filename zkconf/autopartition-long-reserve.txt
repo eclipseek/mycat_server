@@ -1,0 +1,4 @@
+# range start-end ,data node index
+# K=1000,M=10000.
+0-100=1
+101-200=0

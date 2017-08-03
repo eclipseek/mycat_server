@@ -1,0 +1,56 @@
+=================================================================================================
+Mysql 报文
+=================================================================================================
+
+
+
+
+
+
+=================================================================================================
+AtomicLongArray
+=================================================================================================
+位置：Histogram.java
+public class Histogram {
+    private final long[] ranges;
+    private final AtomicLongArray rangeCounters;
+    ...
+
+方法：
+public final long incrementAndGet(int i)
+
+i ---> index，元素索引，对该位置的元素加1，底层采用 cas。
+
+
+=================================================================================================
+计算当前时间在一天中的哪个时间段
+=================================================================================================
+位置：UserSqlRWStat.java
+
+
+private int time_zone_offset = TimeZone.getDefault().getRawOffset();
+private int one_hour = 3600 * 1000;
+
+long hour0 = time / ( 24L * (long)one_hour ) * ( 24L * (long)one_hour )- (long)time_zone_offset;
+long hour06 = hour0 + 6L * (long)one_hour - 1L;
+long hour13 = hour0 + 13L * (long)one_hour - 1L;
+long hour18 = hour0 + 18L * (long)one_hour - 1L;
+long hour22 = hour0 + 22L * (long)one_hour - 1L;
+
+if ( time <= hour06 || time > hour22 ) {        // 下午22点到早上六点
+    ...
+} else if ( time > hour06 && time <= hour13 ) { // 早上六点到下午三点
+    ...
+} else if ( time > hour13 && time <= hour18 ) { // 下午一点到下午六点
+    ...
+} else if ( time > hour18 && time <= hour22 ) { // 下午六点到下午22点
+    ...
+}
+
+
+
+=================================================================================================
+
+=================================================================================================
+
+

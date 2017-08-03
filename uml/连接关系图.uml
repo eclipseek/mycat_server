@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>io.mycat.net.ClosableConnection</OriginalElement>
+  <nodes>
+    <node x="488.0" y="529.0">io.mycat.backend.postgresql.PostgreSQLBackendConnection</node>
+    <node x="328.0" y="529.0">io.mycat.backend.mysql.nio.MySQLConnection</node>
+    <node x="411.75" y="448.0">io.mycat.net.BackendAIOConnection</node>
+    <node x="234.875" y="367.0">io.mycat.net.AbstractConnection</node>
+    <node x="0.0" y="529.0">io.mycat.server.ServerConnection</node>
+    <node x="74.5" y="448.0">io.mycat.net.FrontendConnection</node>
+    <node x="678.75" y="262.5">io.mycat.net.BIOConnection</node>
+    <node x="246.875" y="262.5">io.mycat.net.NIOConnection</node>
+    <node x="676.125" y="367.0">io.mycat.backend.BackendConnection</node>
+    <node x="749.75" y="448.0">io.mycat.backend.jdbc.JDBCConnection</node>
+    <node x="495.0" y="134.5">io.mycat.net.ClosableConnection</node>
+    <node x="156.0" y="529.0">io.mycat.manager.ManagerConnection</node>
+  </nodes>
+  <notes>
+    <note x="463.5" y="0.0">
+      <node>io.mycat.net.ClosableConnection</node>
+      <value>包装前端和后端连接的公共属性。\n如连接创建时间，状态，远端地址、\n端口，本地端口，进流量和出流量等</value>
+      <edge>
+        <point x="0.0" y="-15.5" />
+        <point x="0.0" y="30.5" />
+      </edge>
+    </note>
+    <note x="664.0" y="136.5">
+      <node>io.mycat.net.BIOConnection</node>
+      <value>以 BIO 方式封装的连接，空实现。</value>
+      <edge>
+        <point x="30.25" y="-15.5" />
+        <point x="0.0" y="13.5" />
+      </edge>
+    </note>
+    <note x="160.125" y="111.0">
+      <node>io.mycat.net.NIOConnection</node>
+      <value>以 NIO 方式包装的连接。\n提供连接创建，数据读写的处理方法。\n\n重点关注是如何提供 NIO 通信能力的。</value>
+      <edge>
+        <point x="-30.75" y="-15.5" />
+        <point x="0.0" y="39.0" />
+      </edge>
+    </note>
+    <note x="819.75" y="239.0">
+      <node>io.mycat.backend.BackendConnection</node>
+      <value>包装和后端（数据库）的连接。\n提供数据库常用方法，如 commit，\nrollback，execute，query，quit\n等。</value>
+      <edge>
+        <point x="37.25" y="-15.5" />
+        <point x="787.875" y="342.0" />
+        <point x="931.75" y="342.0" />
+        <point x="0.0" y="39.0" />
+      </edge>
+    </note>
+  </notes>
+  <edges>
+    <edge source="io.mycat.backend.mysql.nio.MySQLConnection" target="io.mycat.net.BackendAIOConnection">
+      <point x="0.0" y="-15.5" />
+      <point x="398.0" y="504.0" />
+      <point x="454.5" y="504.0" />
+      <point x="-42.75" y="15.5" />
+    </edge>
+    <edge source="io.mycat.net.NIOConnection" target="io.mycat.net.ClosableConnection">
+      <point x="30.75" y="-15.5" />
+      <point x="339.125" y="214.0" />
+      <point x="519.8333333333334" y="214.0" />
+      <point x="-49.66666666666663" y="15.5" />
+    </edge>
+    <edge source="io.mycat.backend.BackendConnection" target="io.mycat.net.ClosableConnection">
+      <point x="-37.25" y="-15.5" />
+      <point x="713.375" y="342.0" />
+      <point x="569.5" y="342.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="io.mycat.server.ServerConnection" target="io.mycat.net.FrontendConnection">
+      <point x="0.0" y="-15.5" />
+      <point x="68.0" y="504.0" />
+      <point x="112.25" y="504.0" />
+      <point x="-37.75" y="15.5" />
+    </edge>
+    <edge source="io.mycat.net.BackendAIOConnection" target="io.mycat.net.AbstractConnection">
+      <point x="-42.75" y="-15.5" />
+      <point x="454.5" y="423.0" />
+      <point x="345.125" y="423.0" />
+      <point x="36.75" y="15.5" />
+    </edge>
+    <edge source="io.mycat.manager.ManagerConnection" target="io.mycat.net.FrontendConnection">
+      <point x="0.0" y="-15.5" />
+      <point x="232.0" y="504.0" />
+      <point x="187.75" y="504.0" />
+      <point x="37.75" y="15.5" />
+    </edge>
+    <edge source="io.mycat.backend.postgresql.PostgreSQLBackendConnection" target="io.mycat.net.BackendAIOConnection">
+      <point x="0.0" y="-15.5" />
+      <point x="596.5" y="504.0" />
+      <point x="540.0" y="504.0" />
+      <point x="42.75" y="15.5" />
+    </edge>
+    <edge source="io.mycat.net.BackendAIOConnection" target="io.mycat.backend.BackendConnection">
+      <point x="42.75" y="-15.5" />
+      <point x="540.0" y="423.0" />
+      <point x="713.375" y="423.0" />
+      <point x="-37.25" y="15.5" />
+    </edge>
+    <edge source="io.mycat.backend.jdbc.JDBCConnection" target="io.mycat.backend.BackendConnection">
+      <point x="0.0" y="-15.5" />
+      <point x="814.25" y="423.0" />
+      <point x="787.875" y="423.0" />
+      <point x="37.25" y="15.5" />
+    </edge>
+    <edge source="io.mycat.net.AbstractConnection" target="io.mycat.net.NIOConnection">
+      <point x="0.0" y="-15.5" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="io.mycat.net.FrontendConnection" target="io.mycat.net.AbstractConnection">
+      <point x="0.0" y="-15.5" />
+      <point x="150.0" y="423.0" />
+      <point x="271.625" y="423.0" />
+      <point x="-36.75" y="15.5" />
+    </edge>
+    <edge source="io.mycat.net.BIOConnection" target="io.mycat.net.ClosableConnection">
+      <point x="-30.25" y="-15.5" />
+      <point x="709.0" y="214.0" />
+      <point x="619.1666666666666" y="214.0" />
+      <point x="49.66666666666663" y="15.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="550.5" y="314.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

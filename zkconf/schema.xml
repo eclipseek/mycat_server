@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<!DOCTYPE mycat:schema SYSTEM "schema.dtd">
+<mycat:schema xmlns:mycat="http://io.mycat/">
+        <schema name="t1" checkSQLschema="true" sqlMaxLimit="100">
+            <table name="student" dataNode="node1,node2" rule="auto-sharding-long" />
+            <table name="course" dataNode="node1,node2" rule="auto-sharding-long" />
+            <table name="score" dataNode="node1,node2" rule="auto-sharding-long" />
+            <table name="broadcast" dataNode="node1,node2" rule="auto-sharding-long" />
+            <table name="cc1" dataNode="node1,node2" rule="auto-sharding-long" />
+            <table name="example" dataNode="node1,node2" rule="auto-sharding-long" />
+        </schema>
+
+        <schema name="t2" checkSQLschema="true" sqlMaxLimit="100" dataNode = "node2">
+            <table name="ddltest" dataNode="node1,node2" rule="auto-sharding-long" />
+            <table name="student" dataNode="node1,node2" rule="auto-sharding-long" />
+            <table name="course" dataNode="node1,node2" rule="auto-sharding-long" />
+            <table name="score" dataNode="node1,node2" rule="auto-sharding-long" />
+            <table name="broadcast" dataNode="node1,node2" rule="auto-sharding-long" />
+            <table name="cc1" dataNode="node1,node2" rule="auto-sharding-long" />
+            <table name="example" dataNode="node1,node2" rule="auto-sharding-long" />
+        </schema>
+
+        <dataNode name="node1" dataHost="linux-vm-141" database="test" />
+        <dataNode name="node2" dataHost="linux-vm-135" database="test" />
+
+        <dataHost name="linux-vm-141" maxCon="100" minCon="10" balance="0" writeType="0" dbType="mysql" dbDriver="jdbc" switchType="1" slaveThreshold="100">     <!-- 定义主机节点信息。 -->
+            <heartbeat>select user()</heartbeat>                                                         <!-- 指定和后端数据库进行心跳检查的语句。oracle 可用 select 1 from dual. -->
+            <writeHost host="vm141" url="jdbc:mysql://192.168.74.141:3306" user="root" password="root">              <!-- 一个 dataHost 并不对应一个物理机器：可以在它下面定义多个 writeHost，在写数据的时候，就会同时向这几个节点写。 -->
+                <!-- can have multi read hosts -->
+                <!--<readHost host="hostS1" url="192.168.74.135:3306" user="root" password="root" />-->
+            </writeHost>
+        </dataHost>
+        <dataHost name="linux-vm-135" maxCon="100" minCon="10" balance="1" writeType="0" dbType="mysql" dbDriver="jdbc" switchType="1">
+            <heartbeat>select user()</heartbeat>
+            <writeHost host="vm135" url="jdbc:mysql://192.168.74.145:3306" user="root" password="root"></writeHost>
+        </dataHost>
+
+
+    <!--<dataHost name="linux-vm-141" maxCon="100" minCon="10" balance="0" writeType="0" dbType="mysql" dbDriver="jdbc" switchType="1" slaveThreshold="100">     &lt;!&ndash; 定义主机节点信息。 &ndash;&gt;-->
+        <!--<heartbeat>select user()</heartbeat>                                                         &lt;!&ndash; 指定和后端数据库进行心跳检查的语句。oracle 可用 select 1 from dual. &ndash;&gt;-->
+        <!--<writeHost host="vm141" url="192.168.74.141:3306" user="root" password="root">              &lt;!&ndash; 一个 dataHost 并不对应一个物理机器：可以在它下面定义多个 writeHost，在写数据的时候，就会同时向这几个节点写。 &ndash;&gt;-->
+            <!--&lt;!&ndash; can have multi read hosts &ndash;&gt;-->
+            <!--&lt;!&ndash;<readHost host="hostS1" url="192.168.74.135:3306" user="root" password="root" />&ndash;&gt;-->
+        <!--</writeHost>-->
+    <!--</dataHost>-->
+    <!--<dataHost name="linux-vm-135" maxCon="100" minCon="10" balance="1" writeType="0" dbType="mysql" dbDriver="jdbc" switchType="1">-->
+        <!--<heartbeat>select user()</heartbeat>-->
+        <!--<writeHost host="vm135" url="192.168.74.145:3306" user="root" password="root"></writeHost>-->
+    <!--</dataHost>-->
+
+
+</mycat:schema>
+
+
+
+<!-- 测试这样一种情况：在 dn1 和 dn3 节点上，存在两张物理表：hps_cfg-label, hps_host，两张表可以通过 id 进行 join 查询。
+测试之前：
+   先向表 hps_cfg_label 中插入 3 条记录，使 3 条数据全部落入 dn1 节点;
+   再向表 hps_host 中插入相同 id 的 3 条记录，使 3 条记录全部落入 dn3 节点；
+注：为了使两张表相同 id 的记录，落入不同的分片节点，要对两张表，使用不同的 rule 规则：hps_cfg_label 使用 auto-sharding-long，hps_host 使用 auto-sharding-long-reserve。
+
+通过客户端连接 mycat，执行 join 查询：
+   /*!mycat:catlet=io.mycat.catlets.ShareJoin */ select a.id, b.id as hostid, b.host_ip from hps_cfg_label  a  join  hps_host b on b.id=a.id;
+能够在两个节点上做 join 查询。
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<?xml version="1.0"?>-->
+<!--<!DOCTYPE mycat:schema SYSTEM "schema.dtd">-->
+<!--<mycat:schema xmlns:mycat="http://io.mycat/">-->
+<!--<schema name="test" checkSQLschema="true" sqlMaxLimit="100" dataNode = "node1">-->
+    <!--<table name="student" dataNode="node1,node2" rule="auto-sharding-long" />-->
+    <!--<table name="course" dataNode="node1,node2" rule="auto-sharding-long" />-->
+    <!--<table name="score" dataNode="node1,node2" rule="auto-sharding-long" />-->
+    <!--<table name="broadcast" dataNode="node1,node2" rule="auto-sharding-long" />-->
+    <!--<table name="cc1" dataNode="node1,node2" rule="auto-sharding-long" />-->
+    <!--<table name="example" dataNode="node1,node2" rule="auto-sharding-long" />-->
+<!--</schema>-->
+
+<!--<schema name="test1" checkSQLschema="true" sqlMaxLimit="100" dataNode = "node1,node2">-->
+    <!--<table name="student" dataNode="node1,node2" rule="auto-sharding-long" />-->
+    <!--<table name="course" dataNode="node1,node2" rule="auto-sharding-long" />-->
+    <!--<table name="score" dataNode="node1,node2" rule="auto-sharding-long" />-->
+    <!--<table name="broadcast" dataNode="node1,node2" rule="auto-sharding-long" />-->
+    <!--<table name="cc1" dataNode="node1,node2" rule="auto-sharding-long" />-->
+    <!--<table name="example" dataNode="node1,node2" rule="auto-sharding-long" />-->
+<!--</schema>-->
+
+<!--<dataNode name="node1" dataHost="linux-vm-141" database="test" />-->
+<!--<dataNode name="node2" dataHost="linux-vm-135" database="test" />-->
+
+<!--<dataHost name="linux-vm-141" maxCon="100" minCon="10" balance="0" writeType="0" dbType="mysql" dbDriver="native" switchType="1" slaveThreshold="100">     &lt;!&ndash; 定义主机节点信息。 &ndash;&gt;-->
+    <!--<heartbeat>select user()</heartbeat>                                                         &lt;!&ndash; 指定和后端数据库进行心跳检查的语句。oracle 可用 select 1 from dual. &ndash;&gt;-->
+    <!--<writeHost host="vm141" url="192.168.74.141:3306" user="root" password="root">              &lt;!&ndash; 一个 dataHost 并不对应一个物理机器：可以在它下面定义多个 writeHost，在写数据的时候，就会同时向这几个节点写。 &ndash;&gt;-->
+        <!--&lt;!&ndash; can have multi read hosts &ndash;&gt;-->
+        <!--&lt;!&ndash;<readHost host="hostS1" url="192.168.74.135:3306" user="root" password="root" />&ndash;&gt;-->
+    <!--</writeHost>-->
+<!--</dataHost>-->
+<!--<dataHost name="linux-vm-135" maxCon="100" minCon="10" balance="1" writeType="0" dbType="mysql" dbDriver="native" switchType="1">-->
+    <!--<heartbeat>select user()</heartbeat>-->
+    <!--<writeHost host="vm135" url="192.168.74.145:3306" user="root" password="root"></writeHost>-->
+<!--</dataHost>-->
+<!--</mycat:schema>-->
+
+
+
+        <!--&lt;!&ndash; 测试这样一种情况：在 dn1 和 dn3 节点上，存在两张物理表：hps_cfg-label, hps_host，两张表可以通过 id 进行 join 查询。-->
+        <!--测试之前：-->
+           <!--先向表 hps_cfg_label 中插入 3 条记录，使 3 条数据全部落入 dn1 节点;-->
+           <!--再向表 hps_host 中插入相同 id 的 3 条记录，使 3 条记录全部落入 dn3 节点；-->
+        <!--注：为了使两张表相同 id 的记录，落入不同的分片节点，要对两张表，使用不同的 rule 规则：hps_cfg_label 使用 auto-sharding-long，hps_host 使用 auto-sharding-long-reserve。-->
+        <!-- -->
+        <!--通过客户端连接 mycat，执行 join 查询：-->
+           <!--/*!mycat:catlet=io.mycat.catlets.ShareJoin */ select a.id, b.id as hostid, b.host_ip from hps_cfg_label  a  join  hps_host b on b.id=a.id;-->
+        <!--能够在两个节点上做 join 查询。-->
+        <!--&ndash;&gt;-->

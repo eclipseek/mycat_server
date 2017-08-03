@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>io.mycat.net.SocketWR</OriginalElement>
+  <nodes>
+    <node x="422.00000000000006" y="904.5">io.mycat.net.NIOReactorPool</node>
+    <node x="459.5" y="719.0">io.mycat.net.NIOReactor.RW</node>
+    <node x="549.7499999999999" y="373.0">io.mycat.net.NIOSocketWR</node>
+    <node x="686.7499999999999" y="373.0">io.mycat.net.AIOSocketWR</node>
+    <node x="602.9999999999999" y="589.0">io.mycat.net.AbstractConnection</node>
+    <node x="945.7499999999999" y="904.5">io.mycat.net.SocketConnector</node>
+    <node x="435.0" y="800.0">io.mycat.net.NIOReactor</node>
+    <node x="709.9999999999999" y="1009.0">io.mycat.net.NIOConnector</node>
+    <node x="663.7499999999999" y="168.5">io.mycat.net.SocketWR</node>
+    <node x="350.00000000000006" y="1009.0">io.mycat.net.AIOAcceptor</node>
+    <node x="822.7499999999999" y="373.0">io.mycat.net.NIOHandler</node>
+    <node x="277.00000000000006" y="904.5">io.mycat.net.SocketAcceptor</node>
+    <node x="346.7580128205127" y="373.0">io.mycat.net.NIOProcessor</node>
+    <node x="465.4999999999999" y="168.5">io.mycat.buffer.BufferPool</node>
+    <node x="987.4999999999999" y="1009.0">io.mycat.net.AIOConnector</node>
+    <node x="220.00000000000006" y="1009.0">io.mycat.net.NIOAcceptor</node>
+  </nodes>
+  <notes>
+    <note x="637.2499999999999" y="0.0">
+      <node>io.mycat.net.SocketWR</node>
+      <value>提供读写方法的支持。\nasynRead()\ndoNextWriteCheck()</value>
+      <edge>
+        <point x="0.0" y="-15.5" />
+        <point x="0.0" y="30.5" />
+      </edge>
+    </note>
+    <note x="362.9999999999999" y="540.0">
+      <node>io.mycat.net.NIOReactor.RW</node>
+      <value>NIO channel 的读写线程；\n前端和后端chennel 都在这里读写；\n包含一个 reigster 方法。对前端\nchannel，register 方法做向客户\n端发送握手报文，对后端 chennel，\nregister 方法是后端数据库节点发\n送的握手报文。</value>
+      <edge>
+        <point x="-13.500000000000057" y="-15.5" />
+        <point x="0.0" y="64.5" />
+      </edge>
+    </note>
+    <note x="85.49999999999989" y="111.0">
+      <node>io.mycat.net.NIOProcessor</node>
+      <value>NIO 处理器。\n\nMycat 启动时，创建固定个数的 NIOProcessor（NP）;\n每个后端和前端连接，都挂载到一个 NP 下；\nNP 缓存了其管理的前端和后端连接；\n每个 NP 有自己的统计信息，如网络流量，\n命令执行次数统计等；每个 NP 关联一个 BufferPool 做缓冲\n池分配（所有 NP 共享一个全局 BufferPool 对象）。</value>
+      <edge>
+        <point x="-29.0" y="-15.5" />
+        <point x="375.7580128205127" y="287.0" />
+        <point x="265.4999999999999" y="287.0" />
+        <point x="0.0" y="73.0" />
+      </edge>
+    </note>
+    <note x="33.758012820512704" y="307.0">
+      <node>io.mycat.net.AbstractConnection</node>
+      <value>NIO 连接的抽象实现。\n\n包装了：\n1. 物理连接对象 channel(NetworkChannel)。\n2. 一个 NIOProcessor 对象；\n3. 重要队列：writeQueue，详细代码注释。\n4. NIOHandler 对象，处理远端返回数据；\n5. 提供连接注册，数据读写，数据写缓冲区相关\n方法。</value>
+      <edge>
+        <point x="-64.3125" y="-15.5" />
+        <point x="612.1874999999999" y="520.0" />
+        <point x="180.2580128205127" y="520.0" />
+        <point x="0.0" y="81.5" />
+      </edge>
+    </note>
+    <note x="723.7499999999999" y="881.0">
+      <node>io.mycat.net.NIOConnector</node>
+      <value>一个不断轮询连接列表的线程，\n建立和后端数据库的真正连接，\n之后将连接交由 NIOReactor$RW\n线程，注册读事件。</value>
+      <edge>
+        <point x="14.75" y="-15.5" />
+        <point x="783.7499999999999" y="979.0" />
+        <point x="824.7499999999999" y="979.0" />
+        <point x="0.0" y="39.0" />
+      </edge>
+    </note>
+    <note x="0.0" y="881.0">
+      <node>io.mycat.net.NIOAcceptor</node>
+      <value>接受客户端连接的服务线程。\n\n包装连接成 FrontendConnection 对象，\n并将连接交由 NIOReactor$RW 线程管理。</value>
+      <edge>
+        <point x="-36.666666666666686" y="-15.5" />
+        <point x="238.33333333333337" y="989.0" />
+        <point x="128.5" y="989.0" />
+        <point x="0.0" y="39.0" />
+      </edge>
+    </note>
+  </notes>
+  <edges>
+    <edge source="io.mycat.net.AIOAcceptor" target="io.mycat.net.SocketAcceptor">
+      <point x="0.0" y="-15.5" />
+      <point x="404.00000000000006" y="979.0" />
+      <point x="370.75000000000006" y="979.0" />
+      <point x="31.25" y="15.5" />
+    </edge>
+    <edge source="io.mycat.net.NIOProcessor" target="io.mycat.buffer.BufferPool">
+      <point x="29.0" y="-15.5" />
+      <point x="433.7580128205127" y="287.0" />
+      <point x="512.9999999999999" y="287.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="io.mycat.net.NIOAcceptor" target="io.mycat.net.NIOReactorPool">
+      <point x="36.666666666666686" y="-15.5" />
+      <point x="311.66666666666674" y="989.0" />
+      <point x="454.25000000000006" y="989.0" />
+      <point x="-32.25" y="15.5" />
+    </edge>
+    <edge source="io.mycat.net.AbstractConnection" target="io.mycat.net.SocketWR">
+      <point x="45.9375" y="-15.5" />
+      <point x="722.4374999999999" y="510.0" />
+      <point x="812.2499999999999" y="510.0" />
+      <point x="812.2499999999999" y="277.0" />
+      <point x="741.2499999999999" y="277.0" />
+      <point x="31.0" y="15.5" />
+    </edge>
+    <edge source="io.mycat.net.AIOSocketWR" target="io.mycat.net.SocketWR">
+      <point x="0.0" y="-15.5" />
+      <point x="744.2499999999999" y="287.0" />
+      <point x="710.2499999999999" y="287.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="io.mycat.net.NIOConnector" target="io.mycat.net.SocketConnector">
+      <point x="44.25" y="-15.5" />
+      <point x="813.2499999999999" y="989.0" />
+      <point x="978.9999999999999" y="989.0" />
+      <point x="-33.25" y="15.5" />
+    </edge>
+    <edge source="io.mycat.net.AIOConnector" target="io.mycat.net.SocketConnector">
+      <point x="0.0" y="-15.5" />
+      <point x="33.25" y="15.5" />
+    </edge>
+    <edge source="io.mycat.net.NIOReactor.RW" target="io.mycat.net.NIOReactor">
+      <point x="17.999999999999943" y="15.5" />
+      <point x="504.4999999999999" y="775.0" />
+      <point x="520.8333333333334" y="775.0" />
+      <point x="34.333333333333314" y="-15.5" />
+    </edge>
+    <edge source="io.mycat.net.NIOReactor" target="io.mycat.net.NIOReactor.RW">
+      <point x="-5.6843418860808015E-14" y="-15.5" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="io.mycat.net.NIOAcceptor" target="io.mycat.net.SocketAcceptor">
+      <point x="0.0" y="-15.5" />
+      <point x="275.00000000000006" y="979.0" />
+      <point x="308.25000000000006" y="979.0" />
+      <point x="-31.25" y="15.5" />
+    </edge>
+    <edge source="io.mycat.net.AbstractConnection" target="io.mycat.net.NIOHandler">
+      <point x="64.3125" y="-15.5" />
+      <point x="740.8124999999999" y="520.0" />
+      <point x="874.7499999999999" y="520.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="io.mycat.net.NIOSocketWR" target="io.mycat.net.AbstractConnection">
+      <point x="29.25" y="15.5" />
+      <point x="637.4999999999999" y="490.0" />
+      <point x="667.3124999999999" y="490.0" />
+      <point x="-9.1875" y="-15.5" />
+    </edge>
+    <edge source="io.mycat.net.NIOReactorPool" target="io.mycat.net.NIOReactor">
+      <point x="-32.25000000000006" y="-15.5" />
+      <point x="454.25" y="856.0" />
+      <point x="460.75" y="856.0" />
+      <point x="-25.75" y="15.5" />
+    </edge>
+    <edge source="io.mycat.net.NIOSocketWR" target="io.mycat.net.SocketWR">
+      <point x="0.0" y="-15.5" />
+      <point x="608.2499999999999" y="287.0" />
+      <point x="679.2499999999999" y="287.0" />
+      <point x="-31.0" y="15.5" />
+    </edge>
+    <edge source="io.mycat.net.AbstractConnection" target="io.mycat.net.AIOSocketWR">
+      <point x="9.1875" y="-15.5" />
+      <point x="685.6874999999999" y="490.0" />
+      <point x="715.4999999999999" y="490.0" />
+      <point x="-28.75" y="15.5" />
+    </edge>
+    <edge source="io.mycat.net.NIOConnector" target="io.mycat.net.AbstractConnection">
+      <point x="-14.75" y="-15.5" />
+      <point x="754.2499999999999" y="979.0" />
+      <point x="713.2499999999999" y="979.0" />
+      <point x="36.75" y="15.5" />
+    </edge>
+    <edge source="io.mycat.net.NIOConnector" target="io.mycat.net.NIOReactorPool">
+      <point x="-44.25" y="-15.5" />
+      <point x="724.7499999999999" y="989.0" />
+      <point x="518.75" y="989.0" />
+      <point x="32.24999999999994" y="15.5" />
+    </edge>
+    <edge source="io.mycat.net.AbstractConnection" target="io.mycat.net.NIOSocketWR">
+      <point x="-27.5625" y="-15.5" />
+      <point x="648.9374999999999" y="500.0" />
+      <point x="578.9999999999999" y="500.0" />
+      <point x="-29.25" y="15.5" />
+    </edge>
+    <edge source="io.mycat.net.AbstractConnection" target="io.mycat.net.NIOProcessor">
+      <point x="-45.9375" y="-15.5" />
+      <point x="630.5624999999999" y="510.0" />
+      <point x="404.7580128205127" y="510.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="io.mycat.net.AIOSocketWR" target="io.mycat.net.AbstractConnection">
+      <point x="28.75" y="15.5" />
+      <point x="772.9999999999999" y="500.0" />
+      <point x="704.0624999999999" y="500.0" />
+      <point x="27.5625" y="-15.5" />
+    </edge>
+    <edge source="io.mycat.net.NIOReactor.RW" target="io.mycat.net.AbstractConnection">
+      <point x="13.499999999999943" y="-15.5" />
+      <point x="499.9999999999999" y="694.0" />
+      <point x="639.7499999999999" y="694.0" />
+      <point x="-36.75" y="15.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="707.5" y="345.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

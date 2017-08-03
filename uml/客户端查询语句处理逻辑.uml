@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>io.mycat.net.handler.FrontendCommandHandler</OriginalElement>
+  <nodes>
+    <node x="229.2371794871795" y="243.0">io.mycat.net.handler.FrontendCommandHandler</node>
+    <node x="179.125" y="162.0">io.mycat.net.FrontendConnection</node>
+    <node x="229.1474358974359" y="0.0">io.mycat.net.NIOHandler</node>
+    <node x="222.625" y="324.0">io.mycat.server.ServerQueryHandler</node>
+    <node x="143.375" y="81.0">io.mycat.net.AbstractConnection</node>
+    <node x="0.0" y="162.0">io.mycat.server.NonBlockingSession</node>
+    <node x="42.301282051282044" y="243.0">io.mycat.server.ServerConnection</node>
+    <node x="359.8621794871795" y="81.0">io.mycat.net.handler.FrontendQueryHandler</node>
+    <node x="37.5" y="81.0">io.mycat.server.Session</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="io.mycat.server.ServerQueryHandler" target="io.mycat.server.ServerConnection">
+      <point x="-38.0" y="-15.5" />
+      <point x="260.625" y="299.0" />
+      <point x="110.30128205128204" y="299.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="io.mycat.server.ServerConnection" target="io.mycat.net.FrontendConnection">
+      <point x="45.33333333333334" y="-15.5" />
+      <point x="155.6346153846154" y="218.0" />
+      <point x="216.875" y="218.0" />
+      <point x="-37.75" y="15.5" />
+    </edge>
+    <edge source="io.mycat.server.ServerQueryHandler" target="io.mycat.net.handler.FrontendQueryHandler">
+      <point x="38.0" y="-15.5" />
+      <point x="336.625" y="299.0" />
+      <point x="485.1121794871795" y="299.0" />
+      <point x="41.75" y="15.5" />
+    </edge>
+    <edge source="io.mycat.net.FrontendConnection" target="io.mycat.net.handler.FrontendQueryHandler">
+      <point x="37.75" y="-15.5" />
+      <point x="292.375" y="137.0" />
+      <point x="401.6121794871795" y="137.0" />
+      <point x="-41.75" y="15.5" />
+    </edge>
+    <edge source="io.mycat.net.handler.FrontendCommandHandler" target="io.mycat.net.NIOHandler">
+      <point x="48.0" y="-15.5" />
+      <point x="373.2371794871795" y="218.0" />
+      <point x="349.3621794871795" y="218.0" />
+      <point x="349.3621794871795" y="56.0" />
+      <point x="307.1474358974359" y="56.0" />
+      <point x="26.0" y="15.5" />
+    </edge>
+    <edge source="io.mycat.server.NonBlockingSession" target="io.mycat.server.Session">
+      <point x="0.0" y="-15.5" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="io.mycat.server.NonBlockingSession" target="io.mycat.server.ServerConnection">
+      <point x="38.25" y="15.5" />
+      <point x="114.75" y="218.0" />
+      <point x="110.30128205128204" y="218.0" />
+      <point x="0.0" y="-15.5" />
+    </edge>
+    <edge source="io.mycat.server.ServerConnection" target="io.mycat.server.NonBlockingSession">
+      <point x="-45.33333333333334" y="-15.5" />
+      <point x="64.9679487179487" y="218.0" />
+      <point x="38.25" y="218.0" />
+      <point x="-38.25" y="15.5" />
+    </edge>
+    <edge source="io.mycat.net.handler.FrontendCommandHandler" target="io.mycat.net.FrontendConnection">
+      <point x="-48.0" y="-15.5" />
+      <point x="277.2371794871795" y="218.0" />
+      <point x="292.375" y="218.0" />
+      <point x="37.75" y="15.5" />
+    </edge>
+    <edge source="io.mycat.net.AbstractConnection" target="io.mycat.net.NIOHandler">
+      <point x="0.0" y="-15.5" />
+      <point x="216.875" y="56.0" />
+      <point x="255.1474358974359" y="56.0" />
+      <point x="-26.0" y="15.5" />
+    </edge>
+    <edge source="io.mycat.net.FrontendConnection" target="io.mycat.net.AbstractConnection">
+      <point x="-37.75" y="-15.5" />
+      <point x="0.0" y="15.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="270.5" y="177.5" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
